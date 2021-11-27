@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Sample BBS</title>
     <link rel="stylesheet" href="/css/style.css">
+    <script src="js/index.js"></script>
 </head>
 <body>
 <header class="Area_header">サンプル掲示板</header>
@@ -51,7 +52,7 @@
             <tr class="Area_article_title">
                 <td>
                     <label>
-                        <input type="radio" name="article_check" th:text="*{id} + '. ' + *{title}"/>
+                        <input type="radio" name="article_check" th:data-id="*{id}" th:text="*{id} + '. ' + *{title}"/>
                     </label>
                 </td>
             </tr>
@@ -66,5 +67,13 @@
         </table>
     </div>
 </div>
+
+<div class="Area_change_article">
+    <form th:action="@{/}" th:method="get" name="form_change_article">
+        <button type="button" onclick="changeArticleSubmit('update')">編集</button>
+        <button type="button">削除</button>
+    </form>
+</div>
+
 </body>
 </html>

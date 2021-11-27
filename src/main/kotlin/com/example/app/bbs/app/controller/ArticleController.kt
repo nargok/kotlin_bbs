@@ -6,10 +6,7 @@ import com.example.app.bbs.domain.repository.ArticleRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.bind.annotation.*
 
 @Controller
 class ArticleController {
@@ -36,5 +33,15 @@ class ArticleController {
         )
 
         return "redirect:/"
+    }
+
+    @GetMapping("/edit/{id}")
+    fun getArticleEdit(@PathVariable id: Int, model: Model) : String {
+        return if (articleRepository.existsById(id)) {
+            model.addAttribute("article", articleRepository.findById(id))
+            "edit"
+        } else {
+            "redirect:/"
+        }
     }
 }
