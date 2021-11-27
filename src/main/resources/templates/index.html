@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sample BBS</title>
+</head>
+<body>
+<header class="Area_header">サンプル掲示板</header>
+
+<div class="Area_articles"
+     th:each="article:${articles}"
+     th:object="${article}"
+>
+    <div>
+        <table border="1" class="Area_articles_table">
+            <tr class="Area_article_title">
+                <td>
+                    <label>
+                        <input type="radio" name="article_check" th:text="*{id} + '. ' + *{title}"/>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td th:text="'名前:' + *{name} + ' 投稿日:' + ${#dates.format(article.registeredAt, 'yyyy/MM/dd HH:mm:ss')}">
+            </tr>
+            <tr>
+                <td>
+                    <pre th:text="*{contents}"></pre>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

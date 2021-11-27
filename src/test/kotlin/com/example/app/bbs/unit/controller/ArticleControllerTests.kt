@@ -9,8 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 
 @RunWith(SpringJUnit4ClassRunner::class)
@@ -24,6 +23,15 @@ class ArticleControllerTests {
     @Before
     fun setup() {
         mockMvc = MockMvcBuilders.standaloneSetup(target).build()
+    }
+
+    @Test
+    fun getArticleListTest() {
+        mockMvc.perform(
+            MockMvcRequestBuilders.get("/")
+        )
+            .andExpect(status().isOk)
+            .andExpect(view().name("index"))
     }
 
     @Test
