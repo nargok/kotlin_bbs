@@ -43,7 +43,7 @@ class ArticleControllerTests {
                 .param("contents", "test")
                 .param("articleKey", "test")
         )
-            .andExpect(status().isOk)
-            .andExpect(content().string("Saved"))
+            .andExpect(status().is3xxRedirection)
+            .andExpect(view().name("redirect:/"))
     }
 }

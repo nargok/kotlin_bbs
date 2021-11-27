@@ -23,7 +23,6 @@ class ArticleController {
     }
 
     @PostMapping("/")
-    @ResponseBody
     fun registerArticle(
         articleRequest: ArticleRequest
     ): String {
@@ -36,6 +35,6 @@ class ArticleController {
             )
         )
 
-        return "Saved"
+        return "redirect:/"
     }
 }
