@@ -68,4 +68,15 @@ class ArticleController {
 
         return "redirect:/"
     }
+
+    @GetMapping("/delete/confirm/{id}")
+    fun getDeleteConfirm(@PathVariable id: Int, model: Model) : String {
+        if (!articleRepository.existsById(id)) {
+            return "redirect:/"
+        }
+
+        model.addAttribute("article", articleRepository.findById(id).get())
+
+        return "delete_confirm"
+    }
 }

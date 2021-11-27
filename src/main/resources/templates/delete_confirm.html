@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sample BBS delete confirm</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header class="Area_header">投稿内容の削除</header>
+
+<div class="Area_register">
+    <form th:action="@{/delete}" th:method="post" th:object="${article}">
+        <table border="1" class="Area_register_table">
+            <tr>
+                <td class="heading">名前</td>
+                <td class="body" th:text="*{name}"></td>
+            </tr>
+            <tr>
+                <td class="heading">題名</td>
+                <td class="body" th:text="*{title}"></td>
+            </tr>
+            <tr>
+                <td class="heading">内容</td>
+                <td class="body" th:text="*{contents}"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    投稿KEY <inptu type="password" value="" name="articleKey"></inptu>
+                    <button type="submit">削除</button>
+                    <button onclick="history.back()">戻る</button>
+                </td>
+            </tr>
+        </table>
+
+        <input type="hidden" name="id" th:field="*{id}">
+    </form>
+</div>
+
+</body>
+</html>

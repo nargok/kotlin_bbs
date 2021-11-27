@@ -5,6 +5,7 @@ import com.example.app.bbs.domain.entity.Article
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mock
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.jdbc.Sql
@@ -117,6 +118,30 @@ class ArticleControllerTests {
             .andExpect(status().is3xxRedirection)
             .andExpect(view().name("redirect:/"))
     }
+
+    @Test
+    fun getDeleteConfirmNotExistsTest() {
+        mockMvc.perform(
+            MockMvcRequestBuilders.get("/delete/confirm/0")
+        )
+            .andExpect(status().is3xxRedirection)
+            .andExpect(view().name("redirect:/"))
+    }
+
+    @Test
+    @Sql(statements = ["INSERT INTO article (name, title, contents, article_key) VALUES ('test', 'test', 'test', 'test');"])
+    fun getDeleteConfirmExistsIdTest() {
+        val latestArticle: Article = target.articleRepository.findAll().last()
+
+        mockMvc.perform(
+            MockMvcRequestBuilders.get(
+                "/delete/confirm/${latestArticle.id.toString()}"
+            )
+        )
+            .andExpect(status().isOk)
+            .andExpect(view().name("delete_confirm"))
+    }
+
 
 
 }
